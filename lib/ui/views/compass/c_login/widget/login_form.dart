@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_ecommerce_tokoto/app/app.locator.dart';
+import 'package:flutter_ecommerce_tokoto/app/app.router.dart';
 import 'package:flutter_ecommerce_tokoto/shared/app_context.dart';
 import 'package:flutter_ecommerce_tokoto/shared/constants.dart';
 import 'package:flutter_ecommerce_tokoto/shared/helper/focus_helper.dart';
@@ -13,6 +15,7 @@ import 'package:flutter_ecommerce_tokoto/shared/widgets/app_toast.dart';
 import 'package:flutter_ecommerce_tokoto/themes/input.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class LoginForm extends ViewModelWidget<LoginFormViewModel> {
   const LoginForm({super.key});
@@ -30,7 +33,7 @@ class LoginForm extends ViewModelWidget<LoginFormViewModel> {
             style: textFormFieldStyle(context),
             decoration: const InputDecoration(
               hintText: "Enter your email",
-              prefixIcon: AppFormSuffixIcon(iconData: FontAwesomeIcons.envelope),
+              prefixIcon: AppFormIcon(iconData: FontAwesomeIcons.envelope),
             ),
             onSaved: (newValue) => viewModel.email = newValue ?? '',
             onFieldSubmitted: (_) {
@@ -46,8 +49,8 @@ class LoginForm extends ViewModelWidget<LoginFormViewModel> {
             style: textFormFieldStyle(context),
             decoration: InputDecoration(
               hintText: "Enter your password",
-              prefixIcon: const AppFormSuffixIcon(iconData: FontAwesomeIcons.lock),
-              suffixIcon: AppFormSuffixIcon(
+              prefixIcon: const AppFormIcon(iconData: FontAwesomeIcons.lock),
+              suffixIcon: AppFormIcon(
                 iconData:
                     viewModel.isObscureText ? FontAwesomeIcons.eye : FontAwesomeIcons.eyeSlash,
                 enableIconTap: true,
@@ -72,7 +75,7 @@ class LoginForm extends ViewModelWidget<LoginFormViewModel> {
                 'Forgot Password ?',
                 onTap: () => AppToast.show(context: context, message: 'On Press Idaman'),
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headlineLarge,
+                style: AppTextStyles.headlineLarge(context),
                 // style: appContextTextTheme!.headlineLarge,
                 // style: appContextTextTheme!.labelMedium
                 //     ?.copyWith(color: kColorPrimary, fontWeight: FontWeight.w700),
@@ -108,50 +111,15 @@ class LoginForm extends ViewModelWidget<LoginFormViewModel> {
           SizedBox(
             height: SizeConfig.getProportionateScreenHeight(kSizeFixedLargerMinimal),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: AppButton(
-                  text: 'Help Center',
-                  onPressed: () {
-                    AppToast.show(context: context, message: 'On Press Help Center');
-                  },
-                  variant: AppButtonVariant.transparent,
-                  size: AppButtonSize.small,
-                  icon: const AppIcon.large(
-                    icon: FontAwesomeIcons.question,
-                    color: Colors.red,
-                  ),
-                ),
-              ),
-              Expanded(
-                child: AppButton(
-                  text: 'Help Center',
-                  onPressed: () {
-                    AppToast.show(context: context, message: 'On Press Help Center');
-                  },
-                  variant: AppButtonVariant.transparent,
-                  size: AppButtonSize.small,
-                  icon: const AppIcon.large(
-                    icon: FontAwesomeIcons.question,
-                    color: Colors.red,
-                  ),
-                ),
-              ),
-            ],
-          ),
           AppButton(
             text: 'Help Center',
             isFullWidth: false,
-            onPressed: () {
-              AppToast.show(context: context, message: 'On Press Help Center');
-            },
+            onPressed: viewModel.navigateToHelpCenter,
             variant: AppButtonVariant.transparent,
-            size: AppButtonSize.normal,
-            icon: const AppIcon.large(
-              icon: FontAwesomeIcons.question,
-              color: Colors.red,
+            size: AppButtonSize.small,
+            icon: AppIcon.medium(
+              icon: FontAwesomeIcons.headset,
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
         ],
@@ -161,6 +129,7 @@ class LoginForm extends ViewModelWidget<LoginFormViewModel> {
 }
 
 class LoginFormViewModel extends BaseViewModel {
+  final _navigationService = locator<NavigationService>();
   final formKey = GlobalKey<FormState>();
   final emailFocusNode = FocusNode();
   final passwordFocusNode = FocusNode();
@@ -172,6 +141,10 @@ class LoginFormViewModel extends BaseViewModel {
   void togglePasswordVisibility() {
     isObscureText = !isObscureText;
     notifyListeners();
+  }
+
+  navigateToHelpCenter() {
+    _navigationService.navigateToCHelpCenterView();
   }
 
   @override

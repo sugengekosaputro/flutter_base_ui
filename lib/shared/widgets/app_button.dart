@@ -6,6 +6,8 @@ enum AppButtonVariant { primary, danger, outline, transparent }
 
 enum AppButtonSize { normal, small }
 
+enum AppButtonIconPosition { prefix, suffix }
+
 class AppButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
@@ -14,74 +16,82 @@ class AppButton extends StatelessWidget {
   final bool isDisabled;
   final bool isLoading;
   final Widget? icon;
+  final AppButtonIconPosition iconPosition; // Icon position
   final double? width;
   final double? height;
-  final bool isFullWidth; // New property for controlling max width
+  final bool isFullWidth;
+  final Color? backgroundColor;
+  final Color? textColor;
+  final Color? borderColor;
 
   const AppButton({
     super.key,
     required this.text,
-    this.onPressed,
+    required this.onPressed,
     this.variant = AppButtonVariant.primary,
     this.size = AppButtonSize.normal,
     this.isDisabled = false,
     this.isLoading = false,
     this.icon,
+    this.iconPosition = AppButtonIconPosition.prefix, // Default prefix
     this.width,
     this.height,
-    this.isFullWidth = true, // Default to max width
+    this.isFullWidth = true,
+    this.backgroundColor,
+    this.textColor,
+    this.borderColor,
   });
 
   @override
   Widget build(BuildContext context) {
-    // Fixed heights and font sizes based on size
     final double buttonHeight = height ?? (size == AppButtonSize.small ? 36.0 : 48.0);
     final double fontSize = size == AppButtonSize.small ? 14.0 : 16.0;
 
-    // Colors based on variant
-    final Color backgroundColor;
-    final Color textColor;
-    final Color borderColor;
+    // Default colors based on variant
+    final Color defaultBackgroundColor;
+    final Color defaultTextColor;
+    final Color defaultBorderColor;
 
     switch (variant) {
       case AppButtonVariant.danger:
-        backgroundColor = Colors.red;
-        textColor = Colors.white;
-        borderColor = Colors.transparent;
+        defaultBackgroundColor = Colors.red;
+        defaultTextColor = Colors.white;
+        defaultBorderColor = Colors.transparent;
         break;
       case AppButtonVariant.outline:
-        backgroundColor = Colors.transparent;
-        textColor = Theme.of(context).primaryColor;
-        borderColor = Theme.of(context).primaryColor;
+        defaultBackgroundColor = Colors.transparent;
+        defaultTextColor = Theme.of(context).primaryColor;
+        defaultBorderColor = Theme.of(context).primaryColor;
         break;
       case AppButtonVariant.transparent:
-        backgroundColor = Colors.transparent;
-        textColor = Theme.of(context).primaryColor;
-        borderColor = Colors.transparent;
+        defaultBackgroundColor = Colors.transparent;
+        defaultTextColor = Theme.of(context).primaryColor;
+        defaultBorderColor = Colors.transparent;
         break;
-      default: // Primary
-        backgroundColor = Theme.of(context).colorScheme.primary;
-        textColor = Colors.white;
-        borderColor = Colors.transparent;
+      default:
+        defaultBackgroundColor = Theme.of(context).primaryColor;
+        defaultTextColor = Colors.white;
+        defaultBorderColor = Colors.transparent;
     }
 
-    // Button style
+    final Color resolvedBackgroundColor = backgroundColor ?? defaultBackgroundColor;
+    final Color resolvedTextColor = textColor ?? defaultTextColor;
+    final Color resolvedBorderColor = borderColor ?? defaultBorderColor;
+
     final ButtonStyle style = FilledButton.styleFrom(
       backgroundColor:
           variant == AppButtonVariant.outline || variant == AppButtonVariant.transparent
               ? Colors.transparent
-              : backgroundColor,
-      foregroundColor: textColor,
+              : resolvedBackgroundColor,
+      foregroundColor: resolvedTextColor,
       disabledBackgroundColor: Theme.of(context).disabledColor,
       disabledForegroundColor: Colors.white70,
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      fixedSize: width != null
-          ? Size(width!, buttonHeight) // Use explicit width if provided
+      fixedSize: width != null ? Size(width!, buttonHeight) : null,
+      minimumSize: isFullWidth ? Size(double.infinity, buttonHeight) : null,
+      side: variant == AppButtonVariant.outline
+          ? BorderSide(color: resolvedBorderColor, width: 1.2)
           : null,
-      minimumSize: isFullWidth
-          ? Size(double.infinity, buttonHeight) // Full width by default
-          : null, // No constraint for text-based width
-      side: variant == AppButtonVariant.outline ? BorderSide(color: borderColor, width: 1.2) : null,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(kSizeFixedLG),
       ),
@@ -96,24 +106,27 @@ class AppButton extends StatelessWidget {
               height: fontSize,
               child: CircularProgressIndicator(
                 strokeWidth: 2,
-                valueColor: AlwaysStoppedAnimation<Color>(textColor),
+                valueColor: AlwaysStoppedAnimation<Color>(resolvedTextColor),
               ),
             )
           : Row(
-              mainAxisSize: MainAxisSize.min, // Row adjusts to content width
-              mainAxisAlignment: MainAxisAlignment.center, // Center content within the row
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center, // Ensures vertical alignment
               children: [
-                if (icon != null) ...[
-                  icon!,
-                  const SizedBox(width: 8),
+                if (icon != null && iconPosition == AppButtonIconPosition.prefix) ...[
+                  Center(child: icon!),
+                  const SizedBox(width: 12),
                 ],
                 Text(
                   text,
                   style: TextStyle(
-                    fontSize: fontSize,
-                    fontWeight: FontWeight.w500,
-                  ),
+                      fontSize: fontSize, fontWeight: FontWeight.w500, fontFamily: 'Poppins'),
                 ),
+                if (icon != null && iconPosition == AppButtonIconPosition.suffix) ...[
+                  const SizedBox(width: 12),
+                  Center(child: icon!),
+                ],
               ],
             ),
     );

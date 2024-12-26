@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_ecommerce_tokoto/app/app.bottomsheets.dart';
 import 'package:flutter_ecommerce_tokoto/app/app.dialogs.dart';
 import 'package:flutter_ecommerce_tokoto/app/app.locator.dart';
@@ -44,5 +45,8 @@ class MainApp extends StatelessWidget {
     // Set context for AppContext and SizeConfig initialization
     AppContext().setContext(context);
     SizeConfig.init(context);
+
+    // Set the system overlay style for light theme
+    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle());
   }
 }

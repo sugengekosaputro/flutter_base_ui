@@ -39,14 +39,15 @@ const kPrimaryGradientColor = LinearGradient(
   colors: [Color(0xFFFFA53E), Color(0xFFFF7643)],
 );
 
-const Color kColorLightBackground = AppColors.white2;
+const Color kColorLightBackground = Color(0xFFF3F6FF);
 const Color kColorDarkBackground = AppColors.grey5;
 
 const Color kColorLightTextPrimary = AppColors.neutralLightBlue5;
 const Color kColorLightTextSecondary = AppColors.neutralLightBlue3;
 const Color kColorLightTextWhite = Colors.white;
+const Color kColorLightIcon = AppColors.neutralDarkBlue5;
 
-const Color kColorLightFormBackground = AppColors.white3;
+const Color kColorLightFormBackground = AppColors.white4;
 const Color kColorLightCardBackground = AppColors.white1;
 
 const Color kColorDarkTextPrimary = AppColors.neutralLightBlue1;

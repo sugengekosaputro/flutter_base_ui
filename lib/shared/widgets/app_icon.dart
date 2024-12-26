@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_tokoto/shared/app_colors.dart';
+import 'package:flutter_ecommerce_tokoto/shared/constants.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AppIcon extends StatelessWidget {
@@ -17,7 +18,7 @@ class AppIcon extends StatelessWidget {
     this.semanticLabel,
     this.textDirection,
     this.shadows,
-    this.color = AppColors.grey4, // Default to black
+    this.color = kColorLightIcon, // Default to black
     this.size = 16, // Default to medium (16)
   });
 
@@ -28,7 +29,7 @@ class AppIcon extends StatelessWidget {
     this.semanticLabel,
     this.textDirection,
     this.shadows,
-    this.color = const Color(0xFF000000),
+    this.color = kColorLightIcon,
   }) : size = 16;
 
   const AppIcon.small({
@@ -37,7 +38,7 @@ class AppIcon extends StatelessWidget {
     this.semanticLabel,
     this.textDirection,
     this.shadows,
-    this.color = const Color(0xFF000000),
+    this.color = kColorLightIcon,
   }) : size = 12;
 
   const AppIcon.large({
@@ -46,7 +47,7 @@ class AppIcon extends StatelessWidget {
     this.semanticLabel,
     this.textDirection,
     this.shadows,
-    this.color = const Color(0xFF000000),
+    this.color = kColorLightIcon,
   }) : size = 24;
 
   @override

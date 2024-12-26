@@ -5,12 +5,12 @@ import 'package:flutter_ecommerce_tokoto/shared/size_config.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class AppFormSuffixIcon extends StatelessWidget {
+class AppFormIcon extends StatelessWidget {
   final IconData iconData;
   final VoidCallback? onPressed;
   final bool enableIconTap;
 
-  const AppFormSuffixIcon(
+  const AppFormIcon(
       {super.key, required this.iconData, this.onPressed, this.enableIconTap = false});
 
   @override
@@ -28,7 +28,7 @@ class AppFormSuffixIcon extends StatelessWidget {
         child: FaIcon(
           iconData,
           size: SizeConfig.getProportionateScreenWidth(kSizeFixedMD),
-          color: AppColors.neutralDarkBlue5,
+          // color: AppColors.neutralDarkBlue5,
         ),
       ),
     );

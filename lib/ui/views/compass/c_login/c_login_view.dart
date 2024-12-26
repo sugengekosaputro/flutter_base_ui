@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce_tokoto/shared/app_colors.dart';
 import 'package:flutter_ecommerce_tokoto/shared/app_context.dart';
 import 'package:flutter_ecommerce_tokoto/shared/constants.dart';
 import 'package:flutter_ecommerce_tokoto/shared/size_config.dart';
@@ -18,6 +19,7 @@ class CLoginView extends StackedView<CLoginViewModel> {
   Widget builder(BuildContext context, CLoginViewModel viewModel, Widget? child) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
+      backgroundColor: kColorLightTextWhite,
       body: SafeArea(
         child: LayoutBuilder(builder: (context, constraints) {
           double screenHeight = constraints.maxHeight;
@@ -64,10 +66,10 @@ class CLoginView extends StackedView<CLoginViewModel> {
                     },
                   ),
                   AppOtp(
-                    otpLength: 4,
+                    otpLength: 5,
                     onCompleted: (otp) {
                       log(otp);
-                      if (otp == '5555') {
+                      if (otp == '55555') {
                         log('benar');
                         viewModel.setOtpErrror(false); // Reset error state
                       } else {
@@ -79,6 +81,34 @@ class CLoginView extends StackedView<CLoginViewModel> {
                   ),
 
                   AppCard(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Dynamic Title",
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 8),
+                        const Text(
+                          "This is a base card with dynamic content. You can replace the child with any widget you want!",
+                        ),
+                      ],
+                    ),
+                    gradient: LinearGradient(
+                      colors: [Colors.blue, Colors.purple],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    borderRadius: BorderRadius.circular(16),
+                    // shadow: BoxShadow(
+                    //   color: Colors.black26,
+                    //   blurRadius: 8,
+                    //   offset: Offset(0, 2),
+                    // ),
+                  ),
+
+                  AppCard(
+                    backgroundColor: AppColors.neutralDarkBlue5,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

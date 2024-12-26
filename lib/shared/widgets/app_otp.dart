@@ -1,15 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce_tokoto/shared/app_colors.dart';
-import 'package:flutter_ecommerce_tokoto/shared/constants.dart';
-import 'package:flutter_ecommerce_tokoto/shared/widgets/app_text.dart';
-import 'package:flutter_ecommerce_tokoto/themes/input.dart';
-
-import 'dart:developer';
-
-import 'package:flutter/material.dart';
-
 class AppOtp extends StatefulWidget {
   final int otpLength;
   final ValueChanged<String> onCompleted;
@@ -95,7 +85,7 @@ class _AppOtpState extends State<AppOtp> {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4.0),
               child: SizedBox(
-                width: 40,
+                width: 48,
                 child: TextField(
                   controller: _controllers[index],
                   focusNode: _focusNodes[index],
@@ -105,7 +95,7 @@ class _AppOtpState extends State<AppOtp> {
                   decoration: InputDecoration(
                     counterText: '',
                     filled: true,
-                    fillColor: const Color(0xffdee2e6),
+                    fillColor: const Color(0xFFF3F6FF),
                     contentPadding: const EdgeInsets.all(8.0),
                     border: _defaultBorder(),
                     enabledBorder: widget.setError ? _errorBorder() : _defaultBorder(),
