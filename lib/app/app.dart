@@ -9,6 +9,8 @@ import 'package:flutter_ecommerce_tokoto/ui/views/material_design/material_desig
 import 'package:flutter_ecommerce_tokoto/ui/views/screen_list/screen_list_view.dart';
 import 'package:flutter_ecommerce_tokoto/ui/views/compass/c_help_center/c_help_center_view.dart';
 
+import '../ui/views/compass/c_forgot_password/c_forgot_password_view.dart';
+
 @StackedApp(
   routes: [
     MaterialRoute(page: HomeView),
@@ -17,6 +19,8 @@ import 'package:flutter_ecommerce_tokoto/ui/views/compass/c_help_center/c_help_c
     MaterialRoute(page: ScreenListView),
     MaterialRoute(page: CLoginView),
     MaterialRoute(page: CHelpCenterView),
+    MaterialRoute(page: CForgotPasswordView),
+    MaterialRoute(page: CForgotPasswordView),
 // @stacked-route
   ],
   dependencies: [

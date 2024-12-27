@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce_tokoto/shared/app_colors.dart';
-import 'package:flutter_ecommerce_tokoto/shared/size_config.dart';
+import 'package:flutter_ecommerce_tokoto/core/pro_colors.dart';
+import 'package:flutter_ecommerce_tokoto/core/pro_measure.dart';
 
 const double kSizeFixedXXS = 2.0;
 const double kSizeFixedXS = 4.0;
@@ -23,31 +23,35 @@ const double kSizePercentLG = 0.24;
 const double kSizePercentXL = 0.32;
 const double kSizePercentXXL = 0.40;
 
-double kSizeResponsiveXXS = SizeConfig.getProportionateScreenHeight(kSizeFixedXXS);
-double kSizeResponsiveXS = SizeConfig.getProportionateScreenHeight(kSizeFixedXS);
-double kSizeResponsiveSM = SizeConfig.getProportionateScreenHeight(kSizeFixedSM);
-double kSizeResponsiveMD = SizeConfig.getProportionateScreenHeight(kSizeFixedMD);
-double kSizeResponsiveLG = SizeConfig.getProportionateScreenHeight(kSizeFixedLG);
-double kSizeResponsiveXL = SizeConfig.getProportionateScreenHeight(kSizeFixedXL);
-double kSizeResponsiveXXL = SizeConfig.getProportionateScreenHeight(kSizeFixedXXL);
+double kSizeResponsiveXXS = ProMeasure.getProportionateScreenHeight(kSizeFixedXXS);
+double kSizeResponsiveXS = ProMeasure.getProportionateScreenHeight(kSizeFixedXS);
+double kSizeResponsiveSM = ProMeasure.getProportionateScreenHeight(kSizeFixedSM);
+double kSizeResponsiveMD = ProMeasure.getProportionateScreenHeight(kSizeFixedMD);
+double kSizeResponsiveLG = ProMeasure.getProportionateScreenHeight(kSizeFixedLG);
+double kSizeResponsiveXL = ProMeasure.getProportionateScreenHeight(kSizeFixedXL);
+double kSizeResponsiveXXL = ProMeasure.getProportionateScreenHeight(kSizeFixedXXL);
 
-const kColorPrimary = Color(0xFF006cb8);
-const kColorPrimaryLight = Color(0xFFA4C4E5);
+const kColorSchemePrimary = Color(0xFF006cb8);
+const kColorSchemePrimaryLight = Color(0xFFA4C4E5);
 const kPrimaryGradientColor = LinearGradient(
   begin: Alignment.topLeft,
   end: Alignment.bottomRight,
   colors: [Color(0xFFFFA53E), Color(0xFFFF7643)],
 );
 
-const Color kColorLightBackground = Color(0xFFF3F6FF);
-const Color kColorDarkBackground = AppColors.grey5;
+const Color kColorTransparent = ProColors.transparent;
+const Color kColorLightBackgroundPrimary = ProColors.greyBlue1;
+const Color kColorLightBackgroundWhite = ProColors.whiteSolid;
 
-const Color kColorLightTextPrimary = AppColors.neutralLightBlue5;
-const Color kColorLightTextSecondary = AppColors.neutralLightBlue3;
-const Color kColorLightTextWhite = Colors.white;
-const Color kColorLightIcon = AppColors.neutralDarkBlue5;
+const Color kColorLightTextPrimary = ProColors.neutralLightBlue5;
+const Color kColorLightTextSecondary = ProColors.neutralLightBlue3;
+const Color kColorLightTextError = ProColors.redDark2;
+const Color kColorLightTextWhite = ProColors.whiteSolid;
+const Color kColorLightTextBlack = ProColors.blackSolid;
 
-const Color kColorLightFormBackground = AppColors.white4;
-const Color kColorLightCardBackground = AppColors.white1;
+const Color kColorLightIcon = ProColors.neutralDarkBlue5;
 
-const Color kColorDarkTextPrimary = AppColors.neutralLightBlue1;
+const Color kColorLightFormFilled = kColorLightBackgroundPrimary;
+const Color kColorLightCardBackground = kColorLightBackgroundWhite;
+
+const Color kColorDarkTextPrimary = ProColors.neutralLightBlue1;

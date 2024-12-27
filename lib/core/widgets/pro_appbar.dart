@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_ecommerce_tokoto/shared/widgets/app_icon.dart';
-import 'package:flutter_ecommerce_tokoto/shared/widgets/app_text.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_ecommerce_tokoto/core/widgets/pro_text.dart';
 
-import 'package:flutter/material.dart';
-
-class AppBarCustom extends AppBar {
-  AppBarCustom({
+class ProAppBar extends AppBar {
+  ProAppBar({
     Key? key,
     required BuildContext context,
     Widget? leading,
@@ -27,7 +23,7 @@ class AppBarCustom extends AppBar {
     IconThemeData? iconTheme,
     IconThemeData? actionsIconTheme,
     bool primary = true,
-    bool? centerTitle,
+    bool? centerTitle = true,
     bool excludeHeaderSemantics = false,
     double? titleSpacing,
     double toolbarOpacity = 1.0,
@@ -49,7 +45,7 @@ class AppBarCustom extends AppBar {
           title: customTitle != null
               ? Text(
                   customTitle,
-                  style: AppTextStyles.bodyLarge(context),
+                  style: ProTextStyles.bodyLarge(context),
                 )
               : title,
           actions: [

@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce_tokoto/shared/app_colors.dart';
+import 'package:flutter_ecommerce_tokoto/core/pro_colors.dart';
+import 'package:flutter_ecommerce_tokoto/core/pro_measure.dart';
+import 'package:flutter_ecommerce_tokoto/core/widgets/pro_text.dart';
 import 'package:flutter_ecommerce_tokoto/shared/constants.dart';
 
-enum AppButtonVariant { primary, danger, outline, transparent }
+enum ProButtonVariant { primary, danger, outline, transparent }
 
-enum AppButtonSize { normal, small }
+enum ProButtonSize { normal, small }
 
-enum AppButtonIconPosition { prefix, suffix }
+enum ProButtonIconPosition { prefix, suffix }
 
-class AppButton extends StatelessWidget {
+class ProButton extends StatelessWidget {
   final String text;
   final VoidCallback? onPressed;
-  final AppButtonVariant variant;
-  final AppButtonSize size;
+  final ProButtonVariant variant;
+  final ProButtonSize size;
   final bool isDisabled;
   final bool isLoading;
   final Widget? icon;
-  final AppButtonIconPosition iconPosition; // Icon position
+  final ProButtonIconPosition iconPosition; // Icon position
   final double? width;
   final double? height;
   final bool isFullWidth;
@@ -24,16 +26,16 @@ class AppButton extends StatelessWidget {
   final Color? textColor;
   final Color? borderColor;
 
-  const AppButton({
+  const ProButton({
     super.key,
     required this.text,
     required this.onPressed,
-    this.variant = AppButtonVariant.primary,
-    this.size = AppButtonSize.normal,
+    this.variant = ProButtonVariant.primary,
+    this.size = ProButtonSize.normal,
     this.isDisabled = false,
     this.isLoading = false,
     this.icon,
-    this.iconPosition = AppButtonIconPosition.prefix, // Default prefix
+    this.iconPosition = ProButtonIconPosition.prefix, // Default prefix
     this.width,
     this.height,
     this.isFullWidth = true,
@@ -44,8 +46,8 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double buttonHeight = height ?? (size == AppButtonSize.small ? 36.0 : 48.0);
-    final double fontSize = size == AppButtonSize.small ? 14.0 : 16.0;
+    final double buttonHeight = height ?? (size == ProButtonSize.small ? 36.0 : 48.0);
+    final double fontSize = size == ProButtonSize.small ? 14.0 : 16.0;
 
     // Default colors based on variant
     final Color defaultBackgroundColor;
@@ -53,25 +55,25 @@ class AppButton extends StatelessWidget {
     final Color defaultBorderColor;
 
     switch (variant) {
-      case AppButtonVariant.danger:
-        defaultBackgroundColor = Colors.red;
-        defaultTextColor = Colors.white;
-        defaultBorderColor = Colors.transparent;
+      case ProButtonVariant.danger:
+        defaultBackgroundColor = kColorLightTextError;
+        defaultTextColor = kColorLightTextWhite;
+        defaultBorderColor = kColorTransparent;
         break;
-      case AppButtonVariant.outline:
-        defaultBackgroundColor = Colors.transparent;
+      case ProButtonVariant.outline:
+        defaultBackgroundColor = kColorTransparent;
         defaultTextColor = Theme.of(context).primaryColor;
         defaultBorderColor = Theme.of(context).primaryColor;
         break;
-      case AppButtonVariant.transparent:
-        defaultBackgroundColor = Colors.transparent;
+      case ProButtonVariant.transparent:
+        defaultBackgroundColor = kColorTransparent;
         defaultTextColor = Theme.of(context).primaryColor;
-        defaultBorderColor = Colors.transparent;
+        defaultBorderColor = kColorTransparent;
         break;
       default:
         defaultBackgroundColor = Theme.of(context).primaryColor;
-        defaultTextColor = Colors.white;
-        defaultBorderColor = Colors.transparent;
+        defaultTextColor = kColorLightTextWhite;
+        defaultBorderColor = kColorTransparent;
     }
 
     final Color resolvedBackgroundColor = backgroundColor ?? defaultBackgroundColor;
@@ -80,20 +82,21 @@ class AppButton extends StatelessWidget {
 
     final ButtonStyle style = FilledButton.styleFrom(
       backgroundColor:
-          variant == AppButtonVariant.outline || variant == AppButtonVariant.transparent
-              ? Colors.transparent
+          variant == ProButtonVariant.outline || variant == ProButtonVariant.transparent
+              ? kColorTransparent
               : resolvedBackgroundColor,
       foregroundColor: resolvedTextColor,
       disabledBackgroundColor: Theme.of(context).disabledColor,
-      disabledForegroundColor: Colors.white70,
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      disabledForegroundColor: ProColors.white1,
+      padding:
+          EdgeInsets.symmetric(horizontal: ProMeasure.getProportionateScreenWidth(kSizeFixedMD)),
       fixedSize: width != null ? Size(width!, buttonHeight) : null,
       minimumSize: isFullWidth ? Size(double.infinity, buttonHeight) : null,
-      side: variant == AppButtonVariant.outline
+      side: variant == ProButtonVariant.outline
           ? BorderSide(color: resolvedBorderColor, width: 1.2)
           : null,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(kSizeFixedLG),
+        borderRadius: BorderRadius.circular(ProMeasure.getProportionateScreenWidth(kSizeFixedLG)),
       ),
     );
 
@@ -102,8 +105,8 @@ class AppButton extends StatelessWidget {
       style: style,
       child: isLoading
           ? SizedBox(
-              width: fontSize,
-              height: fontSize,
+              width: ProMeasure.getProportionateScreenWidth(fontSize),
+              height: ProMeasure.getProportionateScreenHeight(fontSize),
               child: CircularProgressIndicator(
                 strokeWidth: 2,
                 valueColor: AlwaysStoppedAnimation<Color>(resolvedTextColor),
@@ -114,17 +117,20 @@ class AppButton extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center, // Ensures vertical alignment
               children: [
-                if (icon != null && iconPosition == AppButtonIconPosition.prefix) ...[
+                if (icon != null && iconPosition == ProButtonIconPosition.prefix) ...[
                   Center(child: icon!),
-                  const SizedBox(width: 12),
+                  SizedBox(width: ProMeasure.getProportionateScreenWidth(12)),
                 ],
-                Text(
+                ProText(
                   text,
                   style: TextStyle(
-                      fontSize: fontSize, fontWeight: FontWeight.w500, fontFamily: 'Poppins'),
+                    fontSize: ProMeasure.getProportionateFontSize(fontSize),
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Poppins',
+                  ),
                 ),
-                if (icon != null && iconPosition == AppButtonIconPosition.suffix) ...[
-                  const SizedBox(width: 12),
+                if (icon != null && iconPosition == ProButtonIconPosition.suffix) ...[
+                  SizedBox(width: ProMeasure.getProportionateScreenWidth(12)),
                   Center(child: icon!),
                 ],
               ],

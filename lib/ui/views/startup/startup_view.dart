@@ -3,7 +3,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:stacked/stacked.dart';
 import 'package:flutter_ecommerce_tokoto/ui/common/ui_helpers.dart';
 
-import '../../../shared/size_config.dart';
+import '../../../core/pro_measure.dart';
 import 'startup_viewmodel.dart';
 
 class StartupView extends StackedView<StartupViewModel> {
@@ -52,6 +52,6 @@ class StartupView extends StackedView<StartupViewModel> {
       StartupViewModel();
 
   @override
-  void onViewModelReady(StartupViewModel viewModel) => SchedulerBinding.instance
-      .addPostFrameCallback((timeStamp) => viewModel.runStartupLogic());
+  void onViewModelReady(StartupViewModel viewModel) =>
+      SchedulerBinding.instance.addPostFrameCallback((timeStamp) => viewModel.runStartupLogic());
 }

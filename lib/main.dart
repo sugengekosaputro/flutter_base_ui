@@ -6,8 +6,10 @@ import 'package:flutter_ecommerce_tokoto/app/app.bottomsheets.dart';
 import 'package:flutter_ecommerce_tokoto/app/app.dialogs.dart';
 import 'package:flutter_ecommerce_tokoto/app/app.locator.dart';
 import 'package:flutter_ecommerce_tokoto/app/app.router.dart';
-import 'package:flutter_ecommerce_tokoto/shared/app_context.dart';
-import 'package:flutter_ecommerce_tokoto/shared/size_config.dart';
+import 'package:flutter_ecommerce_tokoto/core/pro_context.dart';
+import 'package:flutter_ecommerce_tokoto/core/pro_core.dart';
+import 'package:flutter_ecommerce_tokoto/core/pro_measure.dart';
+import 'package:flutter_ecommerce_tokoto/core/themes/pro_theme.dart';
 import 'package:flutter_ecommerce_tokoto/themes/themes.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -23,30 +25,17 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Initialize AppContext and SizeConfig only once
-    _initAppContext(context);
-
+    ProCore.installContext(context);
     return MaterialApp(
-      theme: theme(appContext!), // Access context from appContext instance
+      theme: ProCore.installDefaultTheme(context),
       initialRoute: Routes.startupView,
       onGenerateRoute: StackedRouter().onGenerateRoute,
       navigatorKey: StackedService.navigatorKey,
       navigatorObservers: [StackedService.routeObserver],
       builder: (context, child) {
-        // Update configuration whenever context changes
-        AppContext().setContext(context);
-        SizeConfig.updateConfiguration(context);
+        ProCore.installContext(context);
         return child!;
       },
     );
-  }
-
-  void _initAppContext(BuildContext context) {
-    // Set context for AppContext and SizeConfig initialization
-    AppContext().setContext(context);
-    SizeConfig.init(context);
-
-    // Set the system overlay style for light theme
-    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle());
   }
 }

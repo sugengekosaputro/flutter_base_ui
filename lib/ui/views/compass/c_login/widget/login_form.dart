@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_ecommerce_tokoto/app/app.locator.dart';
 import 'package:flutter_ecommerce_tokoto/app/app.router.dart';
-import 'package:flutter_ecommerce_tokoto/shared/app_context.dart';
+import 'package:flutter_ecommerce_tokoto/core/pro_context.dart';
 import 'package:flutter_ecommerce_tokoto/shared/constants.dart';
-import 'package:flutter_ecommerce_tokoto/shared/helper/focus_helper.dart';
-import 'package:flutter_ecommerce_tokoto/shared/size_config.dart';
-import 'package:flutter_ecommerce_tokoto/shared/widgets/app_button.dart';
-import 'package:flutter_ecommerce_tokoto/shared/widgets/app_divider_text.dart';
-import 'package:flutter_ecommerce_tokoto/shared/widgets/app_form_suffix_icon.dart';
-import 'package:flutter_ecommerce_tokoto/shared/widgets/app_icon.dart';
-import 'package:flutter_ecommerce_tokoto/shared/widgets/app_text.dart';
+import 'package:flutter_ecommerce_tokoto/core/helper/pro_helper_focus.dart';
+import 'package:flutter_ecommerce_tokoto/core/pro_measure.dart';
+import 'package:flutter_ecommerce_tokoto/core/widgets/pro_button.dart';
+import 'package:flutter_ecommerce_tokoto/core/widgets/pro_divider_text.dart';
+import 'package:flutter_ecommerce_tokoto/core/widgets/pro_icon.dart';
+import 'package:flutter_ecommerce_tokoto/core/widgets/pro_text.dart';
 import 'package:flutter_ecommerce_tokoto/shared/widgets/app_toast.dart';
-import 'package:flutter_ecommerce_tokoto/themes/input.dart';
+import 'package:flutter_ecommerce_tokoto/core/themes/properties/input.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -33,14 +32,17 @@ class LoginForm extends ViewModelWidget<LoginFormViewModel> {
             style: textFormFieldStyle(context),
             decoration: const InputDecoration(
               hintText: "Enter your email",
-              prefixIcon: AppFormIcon(iconData: FontAwesomeIcons.envelope),
+              prefixIcon: ProIcon(
+                icon: FontAwesomeIcons.envelope,
+                enableIconPrefixSuffix: true,
+              ),
             ),
             onSaved: (newValue) => viewModel.email = newValue ?? '',
             onFieldSubmitted: (_) {
-              FocusHelper.requestFocus(context, viewModel.passwordFocusNode);
+              ProHelperFocus.requestFocus(context, viewModel.passwordFocusNode);
             },
           ),
-          SizedBox(height: SizeConfig.getProportionateScreenHeight(kSizeFixedMD)),
+          SizedBox(height: ProMeasure.getProportionateScreenHeight(kSizeFixedMD)),
           TextFormField(
             focusNode: viewModel.passwordFocusNode,
             keyboardType: TextInputType.text,
@@ -49,33 +51,35 @@ class LoginForm extends ViewModelWidget<LoginFormViewModel> {
             style: textFormFieldStyle(context),
             decoration: InputDecoration(
               hintText: "Enter your password",
-              prefixIcon: const AppFormIcon(iconData: FontAwesomeIcons.lock),
-              suffixIcon: AppFormIcon(
-                iconData:
-                    viewModel.isObscureText ? FontAwesomeIcons.eye : FontAwesomeIcons.eyeSlash,
-                enableIconTap: true,
-                onPressed: () {
+              prefixIcon: const ProIcon(
+                icon: FontAwesomeIcons.lock,
+                enableIconPrefixSuffix: true,
+              ),
+              suffixIcon: ProIcon(
+                icon: viewModel.isObscureText ? FontAwesomeIcons.eye : FontAwesomeIcons.eyeSlash,
+                enableIconPrefixSuffix: true,
+                onTap: () {
                   viewModel.togglePasswordVisibility();
                 },
               ),
             ),
             onSaved: (newValue) => viewModel.password = newValue ?? '',
             onFieldSubmitted: (_) {
-              FocusHelper.unfocus(context);
+              ProHelperFocus.unfocus(context);
             },
           ),
           SizedBox(
-            height: SizeConfig.getProportionateScreenHeight(kSizeFixedMD),
+            height: ProMeasure.getProportionateScreenHeight(kSizeFixedMD),
           ),
           Padding(
             padding: const EdgeInsets.only(left: kSizeFixedSM),
             child: Align(
               alignment: Alignment.center,
-              child: AppText(
+              child: ProText(
                 'Forgot Password ?',
                 onTap: () => AppToast.show(context: context, message: 'On Press Idaman'),
                 textAlign: TextAlign.center,
-                style: AppTextStyles.headlineLarge(context),
+                style: ProTextStyles.headlineLarge(context),
                 // style: appContextTextTheme!.headlineLarge,
                 // style: appContextTextTheme!.labelMedium
                 //     ?.copyWith(color: kColorPrimary, fontWeight: FontWeight.w700),
@@ -83,9 +87,9 @@ class LoginForm extends ViewModelWidget<LoginFormViewModel> {
             ),
           ),
           SizedBox(
-            height: SizeConfig.getProportionateScreenHeight(kSizeFixedLargerMinimal),
+            height: ProMeasure.getProportionateScreenHeight(kSizeFixedLargerMinimal),
           ),
-          AppButton(
+          ProButton(
             text: 'Continue',
             onPressed: () {
               if (viewModel.formKey.currentState?.validate() ?? false) {
@@ -95,13 +99,13 @@ class LoginForm extends ViewModelWidget<LoginFormViewModel> {
               }
             },
           ),
-          const AppDividerText(text: 'Or sign with'),
-          AppButton(
+          const ProDividerText(text: 'Or sign with'),
+          ProButton(
             text: 'Idaman',
             onPressed: () {
               AppToast.show(context: context, message: 'On Press Idaman');
             },
-            variant: AppButtonVariant.outline,
+            variant: ProButtonVariant.outline,
             icon: Image.asset(
               'assets/logos/logo_idaman.png',
               width: 24.0,
@@ -109,17 +113,17 @@ class LoginForm extends ViewModelWidget<LoginFormViewModel> {
             ),
           ),
           SizedBox(
-            height: SizeConfig.getProportionateScreenHeight(kSizeFixedLargerMinimal),
+            height: ProMeasure.getProportionateScreenHeight(kSizeFixedLargerMinimal),
           ),
-          AppButton(
+          ProButton(
             text: 'Help Center',
             isFullWidth: false,
             onPressed: viewModel.navigateToHelpCenter,
-            variant: AppButtonVariant.transparent,
-            size: AppButtonSize.small,
-            icon: AppIcon.medium(
+            variant: ProButtonVariant.danger,
+            size: ProButtonSize.small,
+            icon: const ProIcon.medium(
               icon: FontAwesomeIcons.headset,
-              color: Theme.of(context).colorScheme.primary,
+              color: kColorLightTextWhite,
             ),
           ),
         ],

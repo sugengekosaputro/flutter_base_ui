@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_tokoto/shared/constants.dart';
-import 'package:flutter_ecommerce_tokoto/shared/size_config.dart';
+import 'package:flutter_ecommerce_tokoto/core/pro_measure.dart';
 import 'package:flutter_ecommerce_tokoto/ui/views/home/data_dummy.dart';
 import 'package:flutter_ecommerce_tokoto/shared/widgets/base_card_widget.dart';
 import 'package:stacked/stacked.dart';
@@ -21,9 +21,8 @@ class HomeView extends StackedView<HomeViewModel> {
         padding: const EdgeInsets.all(kSizeFixedMD),
         child: GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: SizeConfig.isOrientationLandscape()
-                ? 2
-                : 1, // Adjust the number of items per row
+            crossAxisCount:
+                ProMeasure.isOrientationLandscape() ? 2 : 1, // Adjust the number of items per row
             childAspectRatio: 3 / 1, // Adjust aspect ratio as needed W/H
             crossAxisSpacing: kSizeFixedMD,
             mainAxisSpacing: kSizeFixedMD,

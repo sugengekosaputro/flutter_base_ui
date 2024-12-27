@@ -31,7 +31,8 @@ class BaseCardWidget extends StatelessWidget {
           child: Text(
             feature.name,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: Theme.of(context).colorScheme.surface, fontWeight: FontWeight.w700),
+                color: Theme.of(context).colorScheme.surface,
+                fontWeight: FontWeight.w700),
           ),
         ),
       ),

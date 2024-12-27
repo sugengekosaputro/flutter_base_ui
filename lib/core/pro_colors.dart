@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AppColors {
-  static const Color white1 = Color(0xFFf6f8fd);
+class ProColors {
+  static const Color white1 = Color(0xfffdfdff);
   static const Color white2 = Color(0xffe9ecef);
   static const Color white3 = Color(0xffe0e5e8);
   static const Color white4 = Color(0xffced4da);
@@ -25,11 +25,11 @@ class AppColors {
   static const Color neutralDarkBlue4 = Color(0xff2f4864);
   static const Color neutralDarkBlue5 = Color(0xff2f4864);
 
-  static const Color greyBlue1 = Color(0xffb7d4ea);
-  static const Color greyBlue2 = Color(0xff8aa7bd);
-  static const Color greyBlue3 = Color(0xff607d91);
-  static const Color greyBlue4 = Color(0xff385467);
-  static const Color greyBlue5 = Color(0xff0f2f40);
+  static const Color greyBlue1 = Color(0xfff3f6ff);
+  static const Color greyBlue2 = Color(0xffbdbfc8);
+  static const Color greyBlue3 = Color(0xff898c94);
+  static const Color greyBlue4 = Color(0xff595b63);
+  static const Color greyBlue5 = Color(0xff2c2f36);
 
   static const Color blueLight1 = Color(0xffa7e2ff);
   static const Color blueLight2 = Color(0xff86c3ff);
@@ -78,4 +78,8 @@ class AppColors {
   static const Color greenDark3 = Color(0xff52776b);
   static const Color greenDark4 = Color(0xff284c41);
   static const Color greenDark5 = Color(0xff00241b);
+
+  static const Color transparent = Color(0x00000000);
+  static const Color whiteSolid = Color(0xffffffff);
+  static const Color blackSolid = Color(0xff000000);
 }

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 /// Use proportionateScreenHeight for anything related to height (vertical gaps, button heights, etc.).
 /// For uniform scaling of both width and height, choose the dominant dimension. For example, fonts typically scale with width.
 
-class SizeConfig {
+class ProMeasure {
   static late MediaQueryData _mediaQueryData;
   static late double screenWidth;
   static late double screenHeight;
@@ -14,32 +14,30 @@ class SizeConfig {
   static late double blockSizeHorizontal;
   static late double blockSizeVertical;
 
-  /// Initialize SizeConfig in the `build` method of your main widget or root widget
+  /// Initialize or update SizeConfig
   static void init(BuildContext context) {
     _mediaQueryData = MediaQuery.of(context);
     screenWidth = _mediaQueryData.size.width;
     screenHeight = _mediaQueryData.size.height;
     orientation = _mediaQueryData.orientation;
 
-    /// Calculate block sizes (1% of screen width/height)
     blockSizeHorizontal = screenWidth / 100;
     blockSizeVertical = screenHeight / 100;
-
-    log('SizeConfig init()');
+    log("SizeConfig initialized.");
   }
 
-  /// This method checks if the device orientation has changed and updates the configuration accordingly
-  static void updateConfiguration(BuildContext context) {
-    _mediaQueryData = MediaQuery.of(context);
-    screenWidth = _mediaQueryData.size.width;
-    screenHeight = _mediaQueryData.size.height;
-    orientation = _mediaQueryData.orientation;
-
-    /// Recalculate block sizes on orientation change
-    blockSizeHorizontal = screenWidth / 100;
-    blockSizeVertical = screenHeight / 100;
-    log('SizeConfig updated()');
-  }
+  // /// This method checks if the device orientation has changed and updates the configuration accordingly
+  // static void updateConfiguration(BuildContext context) {
+  //   _mediaQueryData = MediaQuery.of(context);
+  //   screenWidth = _mediaQueryData.size.width;
+  //   screenHeight = _mediaQueryData.size.height;
+  //   orientation = _mediaQueryData.orientation;
+  //
+  //   /// Recalculate block sizes on orientation change
+  //   blockSizeHorizontal = screenWidth / 100;
+  //   blockSizeVertical = screenHeight / 100;
+  //   log('SizeConfig updated()');
+  // }
 
   /// Get the proportionate height as per screen size
   static double getProportionateScreenHeight(double inputHeight) {

@@ -1,24 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce_tokoto/core/pro_colors.dart';
+import 'package:flutter_ecommerce_tokoto/core/widgets/pro_text.dart';
+import 'package:flutter_ecommerce_tokoto/shared/constants.dart';
 
-class AppOtp extends StatefulWidget {
+class ProOtp extends StatefulWidget {
   final int otpLength;
   final ValueChanged<String> onCompleted;
   final bool setError;
   final String? errorMessage;
+  final InputDecoration? decoration; // Optional decoration
 
-  const AppOtp({
+  const ProOtp({
     Key? key,
     required this.otpLength,
     required this.onCompleted,
     this.setError = false,
     this.errorMessage,
+    this.decoration, // Allow customization of the decoration
   }) : super(key: key);
 
   @override
-  State<AppOtp> createState() => _AppOtpState();
+  State<ProOtp> createState() => _ProOtpState();
 }
 
-class _AppOtpState extends State<AppOtp> {
+class _ProOtpState extends State<ProOtp> {
   late List<TextEditingController> _controllers;
   late List<FocusNode> _focusNodes;
 
@@ -58,7 +63,7 @@ class _AppOtpState extends State<AppOtp> {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(8.0),
       borderSide: const BorderSide(
-        color: Colors.transparent,
+        color: kColorTransparent,
         width: 1.0,
       ),
     );
@@ -66,9 +71,9 @@ class _AppOtpState extends State<AppOtp> {
 
   OutlineInputBorder _errorBorder() {
     return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8.0),
+      borderRadius: BorderRadius.circular(kSizeFixedSM),
       borderSide: const BorderSide(
-        color: Colors.red,
+        color: ProColors.redDark2,
         width: 1.0,
       ),
     );
@@ -76,6 +81,17 @@ class _AppOtpState extends State<AppOtp> {
 
   @override
   Widget build(BuildContext context) {
+    final inputDecoration = widget.decoration ??
+        InputDecoration(
+          filled: true,
+          fillColor: kColorLightFormFilled,
+          contentPadding: const EdgeInsets.all(kSizeFixedSM),
+          border: _defaultBorder(),
+          enabledBorder: widget.setError ? _errorBorder() : _defaultBorder(),
+          focusedBorder: widget.setError ? _errorBorder() : _defaultBorder(),
+          errorBorder: _errorBorder(),
+        );
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -83,25 +99,16 @@ class _AppOtpState extends State<AppOtp> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(widget.otpLength, (index) {
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+              padding: const EdgeInsets.symmetric(horizontal: kSizeFixedXS),
               child: SizedBox(
                 width: 48,
-                child: TextField(
+                child: TextFormField(
                   controller: _controllers[index],
                   focusNode: _focusNodes[index],
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
                   maxLength: 1,
-                  decoration: InputDecoration(
-                    counterText: '',
-                    filled: true,
-                    fillColor: const Color(0xFFF3F6FF),
-                    contentPadding: const EdgeInsets.all(8.0),
-                    border: _defaultBorder(),
-                    enabledBorder: widget.setError ? _errorBorder() : _defaultBorder(),
-                    focusedBorder: widget.setError ? _errorBorder() : _defaultBorder(),
-                    errorBorder: _errorBorder(),
-                  ),
+                  decoration: inputDecoration.copyWith(counterText: ''),
                   onChanged: (value) {
                     if (value.isNotEmpty) {
                       if (index < widget.otpLength - 1) {
@@ -122,9 +129,9 @@ class _AppOtpState extends State<AppOtp> {
         if (widget.setError)
           Padding(
             padding: const EdgeInsets.only(top: 8.0),
-            child: Text(
+            child: ProText(
               widget.errorMessage ?? 'Invalid OTP entered! Please try again.',
-              style: const TextStyle(color: Colors.red, fontSize: 14),
+              style: ProTextStyles.bodyMedium(context)?.copyWith(color: kColorLightTextError),
             ),
           ),
       ],

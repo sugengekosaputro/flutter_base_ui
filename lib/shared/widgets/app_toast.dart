@@ -6,7 +6,7 @@ class AppToast {
   static void show({
     required BuildContext context,
     required String message,
-    Color backgroundColor = kColorDarkBackground,
+    Color backgroundColor = kColorLightBackgroundWhite,
     Color textColor = kColorLightTextPrimary,
     Duration duration = const Duration(seconds: 3),
     double borderRadius = 8.0,
@@ -97,11 +97,11 @@ class _ToastOverlayState extends State<_ToastOverlay> {
             decoration: BoxDecoration(
               color: widget.backgroundColor,
               borderRadius: BorderRadius.circular(kSizeFixedLG),
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
                   color: Colors.black26,
                   blurRadius: 4,
-                  offset: const Offset(0, 2),
+                  offset: Offset(0, 2),
                 ),
               ],
             ),

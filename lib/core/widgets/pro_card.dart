@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ecommerce_tokoto/shared/constants.dart';
 
-class AppCard extends StatelessWidget {
+class ProCard extends StatelessWidget {
   final Widget child;
   final EdgeInsetsGeometry padding;
   final EdgeInsetsGeometry margin;
@@ -11,7 +11,7 @@ class AppCard extends StatelessWidget {
   final BoxShadow? shadow;
   final double? maxWidth;
 
-  const AppCard({
+  const ProCard({
     Key? key,
     required this.child,
     this.padding = const EdgeInsets.all(kSizeFixedMD),
@@ -34,7 +34,7 @@ class AppCard extends StatelessWidget {
         child: Container(
           margin: margin,
           decoration: BoxDecoration(
-            color: gradient == null ? backgroundColor ?? kColorLightTextWhite : null,
+            color: gradient == null ? backgroundColor ?? kColorLightCardBackground : null,
             gradient: gradient,
             borderRadius: borderRadius,
             boxShadow: shadow != null ? [shadow!] : [],

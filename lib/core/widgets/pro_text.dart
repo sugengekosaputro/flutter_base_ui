@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ecommerce_tokoto/shared/constants.dart';
 
-class AppTextStyles {
+class ProTextStyles {
   static TextStyle? displayLarge(BuildContext context) => Theme.of(context).textTheme.displayLarge;
 
   static TextStyle? displayMedium(BuildContext context) =>
@@ -36,7 +37,7 @@ class AppTextStyles {
   static TextStyle? labelSmall(BuildContext context) => Theme.of(context).textTheme.labelSmall;
 }
 
-class AppText extends StatelessWidget {
+class ProText extends StatelessWidget {
   final String data;
   final TextStyle? style;
   final StrutStyle? strutStyle;
@@ -53,33 +54,33 @@ class AppText extends StatelessWidget {
   final TextHeightBehavior? textHeightBehavior;
   final Color? selectionColor;
   final VoidCallback? onTap;
+  final bool enableRippleEffect;
 
-  const AppText(
-    this.data, {
-    super.key,
-    this.style,
-    this.strutStyle,
-    this.textAlign,
-    this.textDirection,
-    this.locale,
-    this.softWrap,
-    this.overflow,
-    this.textScaleFactor,
-    this.textScaler,
-    this.maxLines,
-    this.semanticsLabel,
-    this.textWidthBasis,
-    this.textHeightBehavior,
-    this.selectionColor,
-    this.onTap,
-  });
+  const ProText(this.data,
+      {super.key,
+      this.style,
+      this.strutStyle,
+      this.textAlign,
+      this.textDirection,
+      this.locale,
+      this.softWrap,
+      this.overflow,
+      this.textScaleFactor,
+      this.textScaler,
+      this.maxLines,
+      this.semanticsLabel,
+      this.textWidthBasis,
+      this.textHeightBehavior,
+      this.selectionColor,
+      this.onTap,
+      this.enableRippleEffect = false});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      splashColor: Colors.transparent,
-      highlightColor: Colors.transparent,
+      splashColor: enableRippleEffect ? kColorSchemePrimary.withOpacity(0.2) : kColorTransparent,
+      highlightColor: enableRippleEffect ? kColorSchemePrimary.withOpacity(0.2) : kColorTransparent,
       child: Text(
         data,
         style: style ?? Theme.of(context).textTheme.bodyMedium,

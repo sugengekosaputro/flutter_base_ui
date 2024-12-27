@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class FocusHelper {
+class ProHelperFocus {
   /// Removes focus from the currently focused widget.
   static void unfocus(BuildContext context) {
     FocusScope.of(context).unfocus();

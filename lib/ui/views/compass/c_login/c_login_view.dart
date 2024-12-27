@@ -1,13 +1,12 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_ecommerce_tokoto/shared/app_colors.dart';
-import 'package:flutter_ecommerce_tokoto/shared/app_context.dart';
+import 'package:flutter_ecommerce_tokoto/core/pro_colors.dart';
 import 'package:flutter_ecommerce_tokoto/shared/constants.dart';
-import 'package:flutter_ecommerce_tokoto/shared/size_config.dart';
-import 'package:flutter_ecommerce_tokoto/shared/widgets/app_card.dart';
-import 'package:flutter_ecommerce_tokoto/shared/widgets/app_otp.dart';
-import 'package:flutter_ecommerce_tokoto/shared/widgets/app_text.dart';
+import 'package:flutter_ecommerce_tokoto/core/pro_measure.dart';
+import 'package:flutter_ecommerce_tokoto/core/widgets/pro_card.dart';
+import 'package:flutter_ecommerce_tokoto/core/widgets/pro_otp.dart';
+import 'package:flutter_ecommerce_tokoto/core/widgets/pro_text.dart';
 import 'package:flutter_ecommerce_tokoto/ui/views/compass/c_login/c_login_viewmodel.dart';
 import 'package:flutter_ecommerce_tokoto/ui/views/compass/c_login/widget/login_form.dart';
 import 'package:stacked/stacked.dart';
@@ -27,12 +26,12 @@ class CLoginView extends StackedView<CLoginViewModel> {
           return SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: SizeConfig.getProportionateScreenWidth(kSizeFixedMD),
+                horizontal: ProMeasure.getProportionateScreenWidth(kSizeFixedMD),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: SizeConfig.heightPercent(kSizeFixedSM)),
+                  SizedBox(height: ProMeasure.heightPercent(kSizeFixedSM)),
                   // Padding(
                   //   padding: const EdgeInsets.only(right: kSizeFixedMD),
                   //   child: Image.asset(
@@ -42,21 +41,21 @@ class CLoginView extends StackedView<CLoginViewModel> {
                   //   ),
                   // ),
                   // SizedBox(height: SizeConfig.getProportionateScreenHeight(kSizeFixedXXL)),
-                  AppText(
+                  ProText(
                     'Welcome Back',
-                    style: AppTextStyles.headlineLarge(context),
+                    style: ProTextStyles.headlineLarge(context),
                   ),
-                  AppText(
+                  ProText(
                     'tes',
-                    style: AppTextStyles.displayLarge(context),
+                    style: ProTextStyles.displayLarge(context),
                   ),
-                  SizedBox(height: SizeConfig.getProportionateScreenHeight(kSizeFixedSM)),
-                  AppText(
+                  SizedBox(height: ProMeasure.getProportionateScreenHeight(kSizeFixedSM)),
+                  ProText(
                     'Sign in with your email and password',
-                    style: AppTextStyles.labelMedium(context),
+                    style: ProTextStyles.labelMedium(context),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: SizeConfig.heightPercent(kSizeFixedSM)),
+                  SizedBox(height: ProMeasure.heightPercent(kSizeFixedSM)),
 
                   // Wrap LoginForm in ViewModelBuilder
                   ViewModelBuilder<LoginFormViewModel>.reactive(
@@ -65,8 +64,26 @@ class CLoginView extends StackedView<CLoginViewModel> {
                       return const LoginForm();
                     },
                   ),
-                  AppOtp(
+                  ProOtp(
                     otpLength: 5,
+                    decoration: InputDecoration(
+                      counterText: '',
+                      filled: true,
+                      fillColor: Colors.yellow,
+                      contentPadding: const EdgeInsets.all(10),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(color: Colors.blue),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(color: Colors.blue),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(color: Colors.green),
+                      ),
+                    ),
                     onCompleted: (otp) {
                       log(otp);
                       if (otp == '55555') {
@@ -80,7 +97,7 @@ class CLoginView extends StackedView<CLoginViewModel> {
                     errorMessage: 'Salah Ngentod', // Custom error message if needed
                   ),
 
-                  AppCard(
+                  ProCard(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -107,8 +124,8 @@ class CLoginView extends StackedView<CLoginViewModel> {
                     // ),
                   ),
 
-                  AppCard(
-                    backgroundColor: AppColors.neutralDarkBlue5,
+                  ProCard(
+                    backgroundColor: ProColors.neutralDarkBlue5,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -123,7 +140,7 @@ class CLoginView extends StackedView<CLoginViewModel> {
                       ],
                     ),
                   ),
-                  AppCard(
+                  ProCard(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: const [
